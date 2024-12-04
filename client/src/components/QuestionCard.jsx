@@ -10,7 +10,7 @@ const QuestionCard = () => {
             </div>
 
             <div className="w-full mt-1 border border-gray-300 flex items-center p-2 h-10 rounded-md overflow-y-scroll">
-                <p className="line-clamp-1 flex  text-xs">
+                <p className="line-clamp-1 flex items-center text-xs">
                     <span className="mr-2 ml-1">
                         <BsPatchQuestion className="bg-green-600 rounded-full text-white" size={20} />
                     </span>

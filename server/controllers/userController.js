@@ -1,4 +1,4 @@
-import userModel from "../../models/userModel.js";
+import userModel from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -42,7 +42,7 @@ export const signUp = async (req, res) => {
     };
 
     const userData = new userModel(payload);
-    const saveUser = await userData.save();
+    await userData.save();
 
     res.status(201).json({
       success: true,
@@ -89,7 +89,7 @@ export const login = async (req, res) => {
       phone: user.phone,
     };
     const token = await jwt.sign(tokenData, process.env.JWT_SECRET_KEY, {
-      expiresIn: 60 * 60 * 24,
+      expiresIn: 60 * 60 * 24 * 7,
     });
 
     const tokenOption = {
@@ -120,10 +120,46 @@ export const login = async (req, res) => {
   }
 };
 
+export const currentUser = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+      return;
+    }
+
+    const userData = {
+      id: user._id,
+      username: user.username,
+      email: user.email,
+      phone: user.phone,
+    };
+
+    return res.status(200).json({
+      success: true,
+      error: false,
+      data: userData,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: true,
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 export const logout = async (req, res) => {
   try {
-    res.cookie("token", "", { expiresIn: 0 }).status(200).json({
-      data: userData,
+    const tokenOption = {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+    };
+
+    res.clearCookie("token", tokenOption).status(200).json({
       message: "Logged out successfully...✅",
       success: true,
       error: false,

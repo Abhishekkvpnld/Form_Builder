@@ -67,7 +67,7 @@ const Signup = () => {
 
       <div className='mx-auto container p-5 '>
 
-        <div className='bg-gray-300 w-full py-2 max-w-md mx-auto rounded-md            p-5 '>
+        <div className='bg-gray-300 w-full py-2 max-w-md mx-auto rounded-md border border-slate-400 p-5 '>
           <form onSubmit={handleSignup} className='flex flex-col gap-2'>
 
             <div className='grid'>

@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
+import { toast } from "react-hot-toast"
+import { backend_url } from "../utils/BACKEND_URL";
+import userContext from "../context/UserContext";
 
 
 const Login = () => {
@@ -11,24 +14,23 @@ const Login = () => {
   const [data, setData] = useState({ email: "user@gmail.com", password: "User@123" });
 
   const navigate = useNavigate();
-  // const { fetchUserDetails, fetchAddToCart } = useContext(userContext);
+  const { fetchUserDetails } = useContext(userContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // try {
-    //     const response = await axios.post(endPoints.logIn.url, data, { withCredentials: true });
+    try {
+      const response = await axios.post(`${backend_url}/user/login`, data, { withCredentials: true });
 
-    //     if (response?.data?.success) {
-    //         toast.success(response?.data?.message);
-    //         navigate("/");
-    //         // fetchUserDetails();
-    //         // fetchAddToCart();
-    //     }
+      if (response?.data?.success) {
+        toast.success(response?.data?.message);
+        navigate("/");
+        fetchUserDetails();
+      }
 
-    // } catch (error) {
-    //     toast.error(error?.response?.data?.message || error)
-    // }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error)
+    }
   };
 
   const handleOnChange = (e) => {
@@ -44,12 +46,12 @@ const Login = () => {
 
   return (
     <section id='login' className='w-[100vw] h-full min-h-[calc(100vh-100px)] flex items-center justify-center flex-col'>
-      
+
       <h1 className="font-bold text-3xl text-slate-500">Login Page</h1>
 
 
       <div className='mx-auto container p-5 '>
-        <div className='bg-gray-300 w-full py-2 max-w-md mx-auto rounded-md p-4 '>
+        <div className='bg-gray-300 w-full py-2 max-w-md mx-auto rounded-md p-4 border border-slate-400 '>
           <form onSubmit={handleLogin} className='flex flex-col gap-2'>
 
             <div className='grid'>
