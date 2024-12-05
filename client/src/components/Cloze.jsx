@@ -5,8 +5,40 @@ import { BsQuestionCircle } from "react-icons/bs";
 import { IoIosCheckboxOutline } from "react-icons/io";
 import { MdAddCircleOutline, MdOutlineDelete } from "react-icons/md";
 import { FaRegClone } from "react-icons/fa6";
+import { useRef, useState } from "react";
 
 const Cloze = () => {
+
+    const [underlinedWords, setUnderlinedWords] = useState([]);
+    const [processedSentence, setProcessedSentence] = useState("");
+
+    const editableRef = useRef(null);
+
+    console.log(underlinedWords,processedSentence)
+
+    const handleUnderline = () => {
+        document.execCommand("underline", false, null);
+        updateUnderlinedWords()
+        replaceUnderlinedWords()
+    };
+
+    const replaceUnderlinedWords = () => {
+        const editableElement = editableRef.current;
+        let htmlContent = editableElement.innerHTML;
+
+
+        const replacedContent = htmlContent.replace(/<u>(.*?)<\/u>/g, "_____");
+        setProcessedSentence(replacedContent);
+    };
+
+
+    const updateUnderlinedWords = () => {
+        const underlinedElements = editableRef.current.querySelectorAll("u");
+        const words = Array.from(underlinedElements).map((el) => el.textContent);
+        setUnderlinedWords(words);
+    };
+
+
     return (
 
         <div className="flex items-start justify-center gap-2  ">
@@ -24,7 +56,7 @@ const Cloze = () => {
                     <div className="flex items-start justify-between mt-4 gap-5">
                         <div className="flex items-start flex-col w-full">
                             <label htmlFor="preview" className="text-xs">preview*</label>
-                            <input type="text" id="preview" className="h-10 border border-slate-400 p-2 w-full rounded-md pl-3" placeholder="......................." />
+                            <input type="text" value={processedSentence && processedSentence} id="preview" className="h-10 border border-slate-400 p-2 w-full rounded-md pl-3" placeholder="......................." />
                         </div>
 
 
@@ -42,27 +74,50 @@ const Cloze = () => {
                         </div>
                     </div>
 
-
                     <div className="flex items-start flex-col gap-2">
                         <div className="flex items-start flex-col w-full">
-                            <label htmlFor="preview" className="text-xs">Sentence*</label>
-                            <input contentEditable={true} type="text" id="preview" className="h-10 border border-slate-400 p-2 w-full rounded-md pl-3" placeholder="Underline the words to convert them into blanks" />
+                            <label htmlFor="preview" className="text-xs">
+                                Sentence*
+                            </label>
+
+                            {/* Editable Content */}
+                            <div
+                                ref={editableRef}
+                                contentEditable={true}
+                                id="preview"
+                                className="h-20 border border-slate-400 p-2 w-full rounded-md pl-3 overflow-y-auto"
+                                placeholder="Underline words to replace them with blanks"
+                                suppressContentEditableWarning={true}
+                            >
+                                This is a sample sentence. You can underline words here.
+                            </div>
+
+                            {/* Underline Button */}
+                            <button
+                                className="mt-2 px-4 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-700"
+                                onClick={handleUnderline}
+                            >
+                                Underline Selected Text
+                            </button>
                         </div>
                     </div>
-
                     <div className="flex items-start flex-col gap-2 mt-5">
                         <label htmlFor="categories" className="font-semibold text-slate-600">Options</label>
 
-                        <div className="flex items-start flex-col ">
+                    {
+                        underlinedWords?.map((el,index)=>(
+                            <div key={index} className="flex items-start flex-col ">
                             <div className="flex items-center gap-1">
                                 <RxDragHandleDots1 />
                                 <IoIosCheckboxOutline className="bg-blue-500 text-white" />
-                                <div className="border border-slate-500 px-1 w-40 py-1 rounded-md">{"cate 1"}</div>
+                                <div className="border border-slate-500 px-1 w-40 py-1 rounded-md">{el}</div>
                             </div>
                         </div>
+                        ))
+                    }
 
                         <div className="flex items-center gap-1 ml-10">
-                            <input type="text" placeholder="Option 1" className="h-8 w-40 p-3 border border-slate-400 rounded-md" />
+                            <input type="text" placeholder="Options" className="h-8 w-40 p-3 border border-slate-400 rounded-md" />
                         </div>
                     </div>
 
@@ -72,7 +127,7 @@ const Cloze = () => {
             </div>
 
             <div className="flex items-start flex-col gap-5 justify-center mt-5">
-                <MdAddCircleOutline size={22} className="cursor-pointer hover:scale-110 transition" title="add"/>
+                <MdAddCircleOutline size={22} className="cursor-pointer hover:scale-110 transition" title="add" />
                 <FaRegClone size={19} />
                 <MdOutlineDelete size={25} />
             </div>
