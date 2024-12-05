@@ -7,19 +7,23 @@ import { MdAddCircleOutline, MdOutlineDelete } from "react-icons/md";
 import { FaRegClone } from "react-icons/fa6";
 import { useRef, useState } from "react";
 
-const Cloze = () => {
+const Cloze = ({ setAllClozeData }) => {
 
     const [underlinedWords, setUnderlinedWords] = useState([]);
     const [processedSentence, setProcessedSentence] = useState("");
+    const [sentence, setSentence] = useState("")
 
     const editableRef = useRef(null);
-
-    console.log(underlinedWords,processedSentence)
 
     const handleUnderline = () => {
         document.execCommand("underline", false, null);
         updateUnderlinedWords()
         replaceUnderlinedWords()
+        setAllClozeData({
+            paragraph: sentence,
+            options: underlinedWords,
+            questionLine: processedSentence
+        })
     };
 
     const replaceUnderlinedWords = () => {
@@ -29,6 +33,7 @@ const Cloze = () => {
 
         const replacedContent = htmlContent.replace(/<u>(.*?)<\/u>/g, "_____");
         setProcessedSentence(replacedContent);
+
     };
 
 
@@ -36,6 +41,10 @@ const Cloze = () => {
         const underlinedElements = editableRef.current.querySelectorAll("u");
         const words = Array.from(underlinedElements).map((el) => el.textContent);
         setUnderlinedWords(words);
+    };
+
+    const handleInput = () => {
+        setSentence(editableRef.current.innerText);
     };
 
 
@@ -82,6 +91,7 @@ const Cloze = () => {
 
                             {/* Editable Content */}
                             <div
+                                onInput={handleInput}
                                 ref={editableRef}
                                 contentEditable={true}
                                 id="preview"
@@ -104,17 +114,17 @@ const Cloze = () => {
                     <div className="flex items-start flex-col gap-2 mt-5">
                         <label htmlFor="categories" className="font-semibold text-slate-600">Options</label>
 
-                    {
-                        underlinedWords?.map((el,index)=>(
-                            <div key={index} className="flex items-start flex-col ">
-                            <div className="flex items-center gap-1">
-                                <RxDragHandleDots1 />
-                                <IoIosCheckboxOutline className="bg-blue-500 text-white" />
-                                <div className="border border-slate-500 px-1 w-40 py-1 rounded-md">{el}</div>
-                            </div>
-                        </div>
-                        ))
-                    }
+                        {
+                            underlinedWords?.map((el, index) => (
+                                <div key={index} className="flex items-start flex-col ">
+                                    <div className="flex items-center gap-1">
+                                        <RxDragHandleDots1 />
+                                        <IoIosCheckboxOutline className="bg-blue-500 text-white" />
+                                        <div className="border border-slate-500 px-1 w-40 py-1 rounded-md">{el}</div>
+                                    </div>
+                                </div>
+                            ))
+                        }
 
                         <div className="flex items-center gap-1 ml-10">
                             <input type="text" placeholder="Options" className="h-8 w-40 p-3 border border-slate-400 rounded-md" />

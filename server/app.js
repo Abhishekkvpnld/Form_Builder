@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import dbConnection from "./config/dbConnection.js";
 import userRoute from "./routes/userRoute.js";
+import formRoute from "./routes/formRoute.js";
 
 dotenv.config();
 
@@ -22,12 +23,13 @@ app.use(
 );
 
 app.use("/api/v1/user", userRoute);
+app.use("/api/v1/form",formRoute);
 
-app.use("/", (req, res) => {
+app.use("/", (req, res) => { 
   res.send("Server running...");
 });
-
-dbConnection().then(() => {
+ 
+dbConnection().then(() => { 
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });

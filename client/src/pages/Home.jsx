@@ -10,6 +10,7 @@ const Home = () => {
 
   const navigate = useNavigate();
 
+
   return (
     <div className="mt-3 container flex flex-col">
 

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./pages/login";
+import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Form from "./pages/Form";
@@ -8,7 +8,7 @@ import Layout from "./Layout/Layout";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import userContext from "./context/UserContext";
-import { backend_url } from "./utils/BACKEND_URL";
+import { backend_url } from "./utils/backend_url";
 
 
 const App = () => {

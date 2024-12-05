@@ -14,7 +14,7 @@ const QuestionCard = () => {
                     <span className="mr-2 ml-1">
                         <BsPatchQuestion className="bg-green-600 rounded-full text-white" size={20} />
                     </span>
-                    How do you pass data from a parent component to a child component in React? 
+                    How do you pass data from a parent component to a child component in React?
                 </p>
             </div>
 

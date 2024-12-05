@@ -10,7 +10,7 @@ import { FaRegStar } from "react-icons/fa";
 
 
 
-const Comprehension = () => {
+const Comprehension = ({ setAllComphrehensionData }) => {
 
     const textareaRef = useRef(null);
 
@@ -27,9 +27,15 @@ const Comprehension = () => {
     const [allQuestion, setAllQuestion] = useState([]);
 
 
+
+
     const handleAddOption = () => {
         setAllAnsOpt((prev) => [...prev, answer]);
         console.log(allAnsOpt)
+        setAllComphrehensionData({
+            passage: passage,
+            subQuestions: allQuestion
+        })
     };
 
     const handleCreateNewSubQuestion = () => {
@@ -38,12 +44,21 @@ const Comprehension = () => {
             options: allAnsOpt
         }])
 
-        console.log(allQuestion)
-        // setAllAnsOpt([])
-        // setAnswer("")
-        // setPassage("")
-        // setAllQuestion([])
+        setAllComphrehensionData({
+            passage: passage,
+            subQuestions: allQuestion
+        })
+
     };
+
+
+    const handleRemoveQuestion = (i) => {
+        setAllQuestion((prev) => prev.filter((_, index) => i !== index));
+        setAllComphrehensionData({
+            passage: passage,
+            subQuestions: allQuestion
+        })
+    }
 
     return (
 
@@ -83,21 +98,21 @@ const Comprehension = () => {
                     <div className="w-full flex flex-col">
                         <label className="text-xs" htmlFor="create">Add Options</label>
                         <div className="flex items-center gap-3">
-                            <input onChange={(e) => setAnswer(e.target.value)} type="text" id="option" className="h-10 border border-slate-400 p-2 w-[50%] rounded-md pl-3" placeholder="Create new questions" />
+                            <input onChange={(e) => setAnswer(e.target.value)} type="text" id="option" className="h-10 border border-slate-400 p-2 w-[50%] rounded-md pl-3" placeholder="Create options" />
                             <span><FaCircleCheck onClick={handleAddOption} color="green" className="hover:scale-110 transition cursor-pointer" size={25} /></span>
                         </div>
 
                         <div className="flex items-start flex-col mt-2 border p-3 rounded-md">
                             {
                                 allAnsOpt?.map((i, index) => (
-                                    <p key={index} className="flex items-center gap-2 text-sm font-semibold text-slate-500"><FaRegStar size={15}/>{i} </p>
+                                    <p key={index} className="flex items-center gap-2 text-sm font-semibold text-slate-500"><FaRegStar size={15} />{i} </p>
                                 ))
                             }
                         </div>
                     </div>
                 </div>
 
-                <SubQuestionPrev allQuestionAns={allQuestion} />
+                <SubQuestionPrev allQuestionAns={allQuestion} handleRemoveQuestion={handleRemoveQuestion} />
             </div>
 
 

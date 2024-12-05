@@ -10,7 +10,7 @@ import { useState } from "react";
 import { IoMdAddCircle } from "react-icons/io";
 
 
-const Categorize = () => {
+const Categorize = ({setAllCategorizeData}) => {
 
     const [question, setQuestion] = useState("");
     const [categoryValue, setCategoryValue] = useState("");
@@ -24,23 +24,28 @@ const Categorize = () => {
 
     const handleCategory = () => {
         setCategories((prev) => [...prev, categoryValue])
+        setAllCategorizeData({question,options,categories})
     }
 
     const handleOption = () => {
         setOption((prev) => [...prev, optionValue])
+        setAllCategorizeData({question,options,categories})
     }
 
     const handleRemoveOpt = (index) => {
         setOption((prev) => prev.filter((_, i) => i !== index));
+        setAllCategorizeData({question,options,categories})
     };
 
     const handleRemoveCategory = (index) => {
         setCategories((prev) => prev.filter((_, i) => i !== index));
+        setAllCategorizeData({question,options,categories})
     };
 
 
     const handleSelectChange = (event) => {
         setSelectValue(event.target.value); 
+        setAllCategorizeData({question,options,categories})
       };
 
     return (
