@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import userContext from "../context/UserContext";
-import { backend_url } from "../utils/BACKEND_URL";
+import { backend_url } from "../utils/backend_url";
 
 
 const Navbar = () => {
