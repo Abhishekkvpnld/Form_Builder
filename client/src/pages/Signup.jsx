@@ -42,7 +42,7 @@ const Signup = () => {
     };
 
     } else {
-      toast.error("Please check the password and confirm passwor");
+      toast.error("Please check the password and confirm password...");
     };
 
   };

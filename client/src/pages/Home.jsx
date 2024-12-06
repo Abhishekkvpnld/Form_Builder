@@ -22,7 +22,7 @@ const Home = () => {
         setAllForm(res?.data?.data);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 

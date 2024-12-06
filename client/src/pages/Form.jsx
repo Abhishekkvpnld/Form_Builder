@@ -39,23 +39,21 @@ const Form = () => {
 
   const handleSubmit = async () => {
     try {
-      console.log(allCategorizeData, allClozeData, allComphrehensionData)
       const res = await axios.post(`${backend_url}/form/create`, { title, allCategorizeData, allClozeData, allComphrehensionData }, { withCredentials: true });
       if (res?.data?.success) {
         navigate("/")
         toast.success(res?.data?.message)
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
+      toast.error(error?.response?.data?.message || error)
     }
   }
 
 
-
-
-  // if (!user.id) {
-  //   return <Navigate to={"/login"} />
-  // }
+  if (!user.id) {
+    return <Navigate to={"/login"} />
+  }
 
   return (
 

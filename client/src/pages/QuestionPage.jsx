@@ -38,7 +38,7 @@ const QuestionPage = () => {
 
         } catch (error) {
             console.log(error);
-            toast.error("Couldn't find data...❌")
+            toast.error(error?.response?.data?.message || error)
         }
     }
 
@@ -52,7 +52,7 @@ const QuestionPage = () => {
             }
         } catch (error) {
             console.log(error)
-            toast.error(error.response.data.message)
+            toast.error(error?.response?.data?.message || error)
         }
     }
 

@@ -26,7 +26,7 @@ app.use("/api/v1/user", userRoute);
 app.use("/api/v1/form",formRoute);
 
 app.use("/", (req, res) => { 
-  res.send("Server running...");
+  res.send("Server running..."); 
 });
  
 dbConnection().then(() => { 
