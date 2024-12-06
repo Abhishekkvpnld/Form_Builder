@@ -1,17 +1,25 @@
 import { useEffect, useState } from "react";
 import { CiMenuKebab } from "react-icons/ci";
 import { RxDragHandleDots1 } from "react-icons/rx";
+import { IoIosRefresh } from "react-icons/io";
 
-const PrevCategorize = ({ data }) => {
+
+const PrevCategorize = ({ data, setCategorizeRes }) => {
+
+
     const [categories, setCategories] = useState(
         data?.categories?.map((category) => ({ name: category, items: [] })) || []
     );
     const [options, setOptions] = useState(data?.options || []);
     const [draggedOver, setDraggedOver] = useState(null);
 
+
+
     const handleDragStart = (event, option) => {
         event.dataTransfer.setData("text/plain", option);
     };
+
+
 
     const handleDrop = (event, categoryIndex) => {
         event.preventDefault();
@@ -29,18 +37,24 @@ const PrevCategorize = ({ data }) => {
         setDraggedOver(null); // Reset drag-over state
     };
 
+
     const allowDrop = (event) => {
         event.preventDefault();
     };
+
 
     const reset = () => {
         setCategories(data?.categories?.map((category) => ({ name: category, items: [] })) || []);
         setOptions(data?.options || []);
     };
 
+
     useEffect(() => {
-        reset()
-    }, []);
+        setCategorizeRes({
+          question: data?.question,
+          answers: categories,
+        });
+      }, [categories, data?.question, setCategorizeRes]);
 
     return (
         <div className="flex flex-col items-center gap-4">
@@ -48,14 +62,17 @@ const PrevCategorize = ({ data }) => {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div className="flex items-center font-bold">
-                        <RxDragHandleDots1 /> Question 2
+                        <RxDragHandleDots1 /> Question 1
                     </div>
-                    <CiMenuKebab />
+                    <div className="flex items-center gap-2">
+                        <IoIosRefresh />
+                        <CiMenuKebab />
+                    </div>
                 </div>
 
                 {/* Question */}
                 <div className="flex items-start justify-start flex-col gap-4 mt-6">
-                    <h1>? question</h1>
+                    <h1>? {data?.question}</h1>
                 </div>
 
                 {/* Options */}
@@ -106,14 +123,14 @@ const PrevCategorize = ({ data }) => {
                     ))}
                 </div>
 
-                
-            {/* Reset Button */}
-            <button
-                className="px-4 py-2 bg-red-500 text-white rounded-lg mt-4"
-                onClick={reset}
-            >
-                Reset
-            </button>
+
+                {/* Reset Button */}
+                <button
+                    className="px-4 py-2 bg-red-500 text-white rounded-lg mt-4"
+                    onClick={reset}
+                >
+                    Refresh
+                </button>
             </div>
 
         </div>

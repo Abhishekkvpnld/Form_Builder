@@ -1,4 +1,5 @@
 import Form from "../models/formModel.js";
+import FormAns from "../models/formAnsModel.js";
 
 export const createForm = async (req, res) => {
   // {
@@ -110,6 +111,48 @@ export const fetchForm = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    res.status(500).json({
+      success: false,
+      error: true,
+      message: error.message,
+    });
+  }
+};
+
+export const Submit = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    if (!userId) {
+      throw new Error("Please login...❌");
+    }
+
+    const { questionId, categorizeRes, clozeRes, comphrehensionRes } = req.body;
+
+    if (
+      !categorizeRes ||
+      clozeRes.correctedLine.length < 1 ||
+      comphrehensionRes.answers.length === 0
+    ) {
+      throw new Error("Please answer all question...❌");
+    }
+
+    const AnsForm = await FormAns.create({
+      userId,
+      categorize: categorizeRes,
+      cloze: clozeRes,
+      comphrehesion: comphrehensionRes,
+      questionId: questionId,
+    });
+
+    AnsForm.save();
+
+    return res.status(201).json({
+      success: true,
+      error: false,
+      message: "Answer submitted successfully...✅",
+    });
+  } catch (error) {
     res.status(500).json({
       success: false,
       error: true,

@@ -10,6 +10,7 @@ import userContext from "./context/UserContext";
 import { backend_url } from "./utils/backend_url";
 import LoginPage from "./pages/LoginPage";
 import QuestionPage from "./pages/QuestionPage";
+import ResponsePage from "./pages/ResponsePage";
 
 
 const App = () => {
@@ -43,6 +44,7 @@ const App = () => {
           <Route element={<Layout><Home /></Layout>} path="/" />
           <Route element={<Layout><Form /></Layout>} path="/create-form" />
           <Route element={<Layout><QuestionPage /></Layout>} path="/:id" />
+          <Route element={<Layout><ResponsePage/></Layout>} path="/success"  />
         </Routes>
       </userContext.Provider>
 
