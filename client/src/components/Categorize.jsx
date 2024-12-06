@@ -8,45 +8,47 @@ import { MdAddCircleOutline, MdOutlineDelete } from "react-icons/md";
 import { FaRegClone } from "react-icons/fa6";
 import { useState } from "react";
 import { IoMdAddCircle } from "react-icons/io";
+import PrevCard from "./prevCard";
 
 
-const Categorize = ({setAllCategorizeData}) => {
+const Categorize = ({ setAllCategorizeData }) => {
 
     const [question, setQuestion] = useState("");
     const [categoryValue, setCategoryValue] = useState("");
     const [optionValue, setOptionValue] = useState("")
-    const [selectValue,setSelectValue] = useState("")
+    const [selectValue, setSelectValue] = useState("")
     const [categories, setCategories] = useState([]);
     const [options, setOption] = useState([]);
 
-
-
+    const [prev, setPrev] = useState(false);
+    
 
     const handleCategory = () => {
         setCategories((prev) => [...prev, categoryValue])
-        setAllCategorizeData({question,options,categories})
+        setAllCategorizeData({ question, options, categories })
     }
 
     const handleOption = () => {
         setOption((prev) => [...prev, optionValue])
-        setAllCategorizeData({question,options,categories})
+        setAllCategorizeData({ question, options, categories })
     }
 
     const handleRemoveOpt = (index) => {
         setOption((prev) => prev.filter((_, i) => i !== index));
-        setAllCategorizeData({question,options,categories})
+        setAllCategorizeData({ question, options, categories })
     };
 
     const handleRemoveCategory = (index) => {
         setCategories((prev) => prev.filter((_, i) => i !== index));
-        setAllCategorizeData({question,options,categories})
+        setAllCategorizeData({ question, options, categories })
     };
 
 
     const handleSelectChange = (event) => {
-        setSelectValue(event.target.value); 
-        setAllCategorizeData({question,options,categories})
-      };
+        setSelectValue(event.target.value);
+        setAllCategorizeData({ question, options, categories })
+    };
+
 
     return (
 
@@ -62,11 +64,15 @@ const Categorize = ({setAllCategorizeData}) => {
                 <div className="flex items-start justify-between mt-4 gap-5">
                     <input type="text" value={question} onChange={(e) => setQuestion(e.target.value)} className="h-8 rounded-md border border-slate-400 p-2 w-full" placeholder="Description (Optional)" />
 
+                    {prev &&
+                        <PrevCard url={"https://res.cloudinary.com/dwfi3oxyl/video/upload/v1733461848/video%20Form_Builder/categorize_create_bpst9p.mp4"} />
+                    }
+
                     <div className="flex items-center gap-3 border border-slate-400 p-2 rounded-lg">
                         <CiImageOn size={30} />
 
                         <div className="flex items-start justify-between gap-1 flex-col">
-                            <h3 className="flex items-center gap-2">Categorize <span><BsQuestionCircle color="blue" className="cursor-pointer" size={15} /></span></h3>
+                            <h3 className="flex items-center gap-2">Categorize <span onMouseLeave={() => setPrev(false)} onMouseEnter={() => setPrev(true)} ><BsQuestionCircle color="blue" className="cursor-pointer" size={15} /></span></h3>
                             <div className="flrx flex-col">
                                 <label className="text-sm text-slate-500" htmlFor="points">Points</label>
                                 <input type="number" name="points" id="points" className="h-8 pl-4 w-16 border border-slate-400 rounded-md" />
@@ -75,6 +81,7 @@ const Categorize = ({setAllCategorizeData}) => {
 
                     </div>
                 </div>
+
 
 
                 <div className="flex items-start flex-col gap-2">
@@ -121,7 +128,7 @@ const Categorize = ({setAllCategorizeData}) => {
                                     </div>
 
                                     <div className="flex items-center gap-1 ml-4">
-                                        <select onChange={(e)=>handleSelectChange(e)} name="selectOpt" value={selectValue} id="select" className="h-8 w-40 p-3 border border-slate-400 rounded-md">
+                                        <select onChange={(e) => handleSelectChange(e)} name="selectOpt" value={selectValue} id="select" className="h-8 w-40 p-3 border border-slate-400 rounded-md">
                                             <option value="">Select</option>
                                             {
                                                 categories?.map((item, index) => (

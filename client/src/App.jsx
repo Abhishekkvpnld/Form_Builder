@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Form from "./pages/Form";
@@ -9,6 +8,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import userContext from "./context/UserContext";
 import { backend_url } from "./utils/backend_url";
+import LoginPage from "./pages/LoginPage";
 
 
 const App = () => {
@@ -37,7 +37,7 @@ const App = () => {
 
       <userContext.Provider value={{user, setUser, fetchUserDetails}}>
         <Routes>
-          <Route element={<Layout><Login /></Layout>} path="/login" />
+          <Route element={<Layout><LoginPage /></Layout>} path="/login" />
           <Route element={<Layout><Signup /></Layout>} path="/signup" />
           <Route element={<Layout><Home /></Layout>} path="/" />
           <Route element={<Layout><Form /></Layout>} path="/:id" />

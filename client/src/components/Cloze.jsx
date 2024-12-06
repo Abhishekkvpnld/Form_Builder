@@ -6,12 +6,15 @@ import { IoIosCheckboxOutline } from "react-icons/io";
 import { MdAddCircleOutline, MdOutlineDelete } from "react-icons/md";
 import { FaRegClone } from "react-icons/fa6";
 import { useRef, useState } from "react";
+import PrevCard from "./prevCard";
 
 const Cloze = ({ setAllClozeData }) => {
 
     const [underlinedWords, setUnderlinedWords] = useState([]);
     const [processedSentence, setProcessedSentence] = useState("");
-    const [sentence, setSentence] = useState("")
+    const [sentence, setSentence] = useState("");
+
+    const [prev, setPrev] = useState(false);
 
     const editableRef = useRef(null);
 
@@ -69,11 +72,15 @@ const Cloze = ({ setAllClozeData }) => {
                         </div>
 
 
+                        {prev &&
+                            <PrevCard url={"https://res.cloudinary.com/dwfi3oxyl/video/upload/v1733461874/video%20Form_Builder/cloze_create_l4akcm.mp4"} />
+                        }
+
                         <div className="flex items-center gap-3 border border-slate-400 p-2 rounded-lg">
                             <CiImageOn size={30} />
 
                             <div className="flex items-start justify-between gap-1 flex-col">
-                                <h3 className="flex items-center gap-2">Cloze <span><BsQuestionCircle color="blue" className="cursor-pointer" size={15} /></span></h3>
+                                <h3 className="flex items-center gap-2">Cloze <span onMouseLeave={() => setPrev(false)} onMouseEnter={() => setPrev(true)}><BsQuestionCircle  color="blue" className="cursor-pointer" size={15} /></span></h3>
                                 <div className="flrx flex-col">
                                     <label className="text-sm text-slate-500" htmlFor="points">Points</label>
                                     <input type="number" name="points" id="points" className="h-8 pl-4 w-16 border border-slate-400 rounded-md" />

@@ -3,11 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-hot-toast"
-import { backend_url } from "../utils/BACKEND_URL";
+import {backend_url} from "../utils/backend_url"
 import userContext from "../context/UserContext";
 
 
-const Login = () => {
+const LoginPage = () => {
 
 
   const [showPassword, setShowPassword] = useState(false);
@@ -106,4 +106,4 @@ const Login = () => {
 }
 
 
-export default Login;
+export default LoginPage;

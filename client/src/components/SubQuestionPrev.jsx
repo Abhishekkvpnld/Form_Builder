@@ -15,7 +15,7 @@ const SubQuestionPrev = ({ allQuestionAns, handleRemoveQuestion }) => {
                         <div className="w-[100%] border border-slate-200 p-4 shadow-sm mt-3 rounded-lg border-l-8 border-l-red-400">
 
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center font-bold"><RxDragHandleDots1 /> Question 3.{index} </div>
+                                <div className="flex items-center font-bold"><RxDragHandleDots1 /> Question 3.{index+1} </div>
                                 <img className="h-12 w-12 " src="/mcq.png" alt="mcq" />
                             </div>
 

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { backend_url } from "../utils/backend_url";
 
 
 const Signup = () => {
@@ -22,27 +23,27 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    // if (data.password === data.confirmPassword) {
-    // try {
-    //   const response = await axios.post(endPoints.singUp.url, data);
+    if (data.password === data.confirmPassword) {
+    try {
+      const response = await axios.post(`${backend_url}/user/register`, data);
 
-    //   if (response.data.success) {
-    //     toast.success(response.data.message);
-    //     navigate("/login")
-    //   };
+      if (response.data.success) {
+        toast.success(response.data.message);
+        navigate("/login")
+      };
 
-    //   if (response.data.error) {
-    //     console.log('error', response.data.message);
-    //     toast.error(response.data.message);
-    //   };
+      if (response.data.error) {
+        console.log('error', response.data.message);
+        toast.error(response.data.message);
+      };
 
-    // } catch (error) {
-    //   toast.error(error.response.data.message);
-    // };
+    } catch (error) {
+      toast.error(error.response.data.message);
+    };
 
-    // } else {
-    //   toast.error("Please check the password and confirm passwor");
-    // };
+    } else {
+      toast.error("Please check the password and confirm passwor");
+    };
 
   };
 

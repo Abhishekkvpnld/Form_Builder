@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 import SubQuestionPrev from "./SubQuestionPrev";
 import { MdAddCircleOutline, MdOutlineDelete } from "react-icons/md";
 import { FaRegStar } from "react-icons/fa";
+import PrevCard from "./prevCard";
 
 
 
@@ -26,7 +27,7 @@ const Comprehension = ({ setAllComphrehensionData }) => {
     const [allAnsOpt, setAllAnsOpt] = useState([])
     const [allQuestion, setAllQuestion] = useState([]);
 
-
+    const [prev, setPrev] = useState(false);
 
 
     const handleAddOption = () => {
@@ -75,11 +76,15 @@ const Comprehension = ({ setAllComphrehensionData }) => {
                 <div className="flex items-start justify-between mt-4 gap-5">
                     <textarea value={passage} ref={textareaRef} onChange={(e) => setPassage(e.target.value)} onInput={handleInput} type="text" className="min-h-16 border resize-y border-slate-400 p-2 w-full rounded-md" placeholder="Type passage here" />
 
+                    {prev &&
+                        <PrevCard url={"https://res.cloudinary.com/dwfi3oxyl/video/upload/v1733461893/video%20Form_Builder/comphrehensive_create_hbgtcj.mp4"} />
+                    }
+
                     <div className="flex items-center gap-3 border border-slate-400 p-2 rounded-lg">
                         <CiImageOn size={30} />
 
                         <div className="flex items-start justify-between gap-1 flex-col">
-                            <h3 className="flex items-center gap-2">Comphrehension <span><BsQuestionCircle color="blue" className="cursor-pointer" size={15} /></span></h3>
+                            <h3 className="flex items-center gap-2">Comphrehension <span onMouseLeave={() => setPrev(false)} onMouseEnter={() => setPrev(true)}><BsQuestionCircle color="blue" className="cursor-pointer" size={15} /></span></h3>
                             <div className="flex flex-col">
                                 <label className="text-sm text-slate-500" htmlFor="points">Points</label>
                                 <input type="number" name="points" id="points" className="h-8 pl-4 w-16 border border-slate-400 rounded-md" />
