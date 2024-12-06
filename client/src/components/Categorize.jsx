@@ -8,7 +8,7 @@ import { MdAddCircleOutline, MdOutlineDelete } from "react-icons/md";
 import { FaRegClone } from "react-icons/fa6";
 import { useState } from "react";
 import { IoMdAddCircle } from "react-icons/io";
-import PrevCard from "./prevCard";
+import PrevCard from "./PrevCard";
 
 
 const Categorize = ({ setAllCategorizeData }) => {
@@ -21,7 +21,7 @@ const Categorize = ({ setAllCategorizeData }) => {
     const [options, setOption] = useState([]);
 
     const [prev, setPrev] = useState(false);
-    
+
 
     const handleCategory = () => {
         setCategories((prev) => [...prev, categoryValue])

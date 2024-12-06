@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import userContext from "./context/UserContext";
 import { backend_url } from "./utils/backend_url";
 import LoginPage from "./pages/LoginPage";
+import QuestionPage from "./pages/QuestionPage";
 
 
 const App = () => {
@@ -35,12 +36,13 @@ const App = () => {
   return (
     <Router>
 
-      <userContext.Provider value={{user, setUser, fetchUserDetails}}>
+      <userContext.Provider value={{ user, setUser, fetchUserDetails }}>
         <Routes>
           <Route element={<Layout><LoginPage /></Layout>} path="/login" />
           <Route element={<Layout><Signup /></Layout>} path="/signup" />
           <Route element={<Layout><Home /></Layout>} path="/" />
-          <Route element={<Layout><Form /></Layout>} path="/:id" />
+          <Route element={<Layout><Form /></Layout>} path="/create-form" />
+          <Route element={<Layout><QuestionPage /></Layout>} path="/:id" />
         </Routes>
       </userContext.Provider>
 

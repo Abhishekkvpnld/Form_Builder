@@ -6,7 +6,7 @@ import { IoIosCheckboxOutline } from "react-icons/io";
 import { MdAddCircleOutline, MdOutlineDelete } from "react-icons/md";
 import { FaRegClone } from "react-icons/fa6";
 import { useRef, useState } from "react";
-import PrevCard from "./prevCard";
+import PrevCard from "./PrevCard";
 
 const Cloze = ({ setAllClozeData }) => {
 

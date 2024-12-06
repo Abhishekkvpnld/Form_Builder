@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 import SubQuestionPrev from "./SubQuestionPrev";
 import { MdAddCircleOutline, MdOutlineDelete } from "react-icons/md";
 import { FaRegStar } from "react-icons/fa";
-import PrevCard from "./prevCard";
+import PrevCard from "./PrevCard";
 
 
 
